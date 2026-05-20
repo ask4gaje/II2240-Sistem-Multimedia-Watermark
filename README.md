@@ -50,7 +50,6 @@ Berikut adalah langkah-langkah detail bagaimana watermark disisipkan ke dalam ga
 Logo (128x128 piksel) digenerate secara programatik menggunakan skrip `create_logo.py`. Gambar ini kemudian dikonversi menjadi matriks biner (0 untuk hitam, 1 untuk putih). Setiap piksel logo ini mewakili satu bit informasi yang akan disebar ke dalam blok frekuensi gambar induk.
 
 ![Langkah 1: Logo](assets/readme_step1_logo.png)
-
 ### 2. Pemisahan Kanal Warna
 Gambar digital (RGB) dipisahkan menjadi tiga kanal warna dasar: Merah (Red), Hijau (Green), dan Biru (Blue). Kami memilih kanal **Hijau** sebagai media penyimpanan karena mata manusia lebih sensitif terhadap detail pada kanal ini, dan algoritma kompresi JPEG cenderung lebih menjaga integritas data pada kanal ini dibandingkan kanal Biru.
 
@@ -61,8 +60,9 @@ Setiap blok 8x8 piksel pada kanal Hijau diubah dari domain spasial (pixel) ke do
 
 ![Langkah 3: DCT Breakdown](assets/readme_step3_breakdown.png)
 
-- **Piksel Asli**: Mewakili intensitas cahaya pada koordinat tertentu.
-- **Koefisien DCT**: Mewakili amplitudo frekuensi. Koefisien kiri atas (DC) adalah nilai rata-rata, sementara koefisien lainnya adalah detail frekuensi. Watermark disisipkan pada koefisien frekuensi rendah-menengah untuk menjaga keseimbangan antara ketangguhan dan kualitas visual.
+1.  **Piksel Asli**: Mewakili intensitas cahaya (0-255).
+2.  **Koefisien DCT**: Mewakili amplitudo frekuensi. Koefisien kiri atas (DC) adalah nilai rata-rata, sementara koefisien lainnya adalah detail frekuensi.
+3.  **Rekonstruksi (IDCT)**: Proses mengembalikan koefisien frekuensi kembali menjadi piksel. Tahap ini membuktikan bahwa transformasi frekuensi bersifat *reversible* (dapat dibalik) tanpa kehilangan data sebelum dilakukan manipulasi atau kompresi.
 
 ### 4. Penyisipan Data (Embedding)
 Data disisipkan dengan memanipulasi hubungan antara dua koefisien DCT tertentu. Karena perubahan dilakukan di domain frekuensi, watermark menjadi "menyatu" dengan pola gambar sehingga sulit dihilangkan oleh kompresi.
