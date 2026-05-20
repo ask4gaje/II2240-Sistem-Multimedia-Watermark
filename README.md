@@ -43,8 +43,6 @@ Setelah instalasi selesai, Anda dapat menjalankan skrip berikut sesuai urutan:
 
 ## Alur Kerja Teknis
 
-Berikut adalah langkah-langkah detail bagaimana watermark disisipkan ke dalam gambar:
-
 ### 1. Pre-proses Logo
 Logo (128x128 piksel) digenerate secara programatik menggunakan skrip `create_logo.py`. Gambar ini kemudian dikonversi menjadi matriks biner (0 untuk hitam, 1 untuk putih). Setiap piksel logo ini mewakili satu bit informasi yang akan disebar ke dalam blok frekuensi gambar induk.
 
