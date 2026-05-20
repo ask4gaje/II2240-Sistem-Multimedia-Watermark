@@ -36,9 +36,8 @@ pip install -r .requirements.txt
 
 ### 4. Menjalankan Skrip
 Setelah instalasi selesai, Anda dapat menjalankan skrip berikut sesuai urutan:
-1.  **Generate Logo**: `python main/create_logo.py` (Membuat logo baseball awal).
-2.  **Evaluasi & Ekstraksi**: `python main/watermark_eval.py` (Menyisipkan watermark dan menguji ketangguhannya).
-3.  **Visualisasi Dokumentasi**: `python main/generate_readme_assets.py` (Memperbarui aset gambar untuk README ini).
+1.  **Generate Logo**: `python -m main.create_logo` (Membuat logo baseball awal).
+2.  **Evaluasi & Ekstraksi**: `python -m main.watermark_eval` (Menyisipkan watermark dan menguji ketangguhannya).
 
 ---
 
