@@ -113,8 +113,6 @@ Folder **`assets/`** digunakan khusus untuk menyimpan file sumber dan gambar pen
 - `main/`:
   - `create_logo.py`: Membuat logo dasar 128x128.
   - `watermark_eval.py`: Skrip utama untuk pengujian watermarking (Output: folder `result/`).
-  - `visualize_steps.py`: Menghasilkan gambar visualisasi teknis ke folder `assets/`.
-  - `generate_readme_assets.py`: Menghasilkan aset gambar untuk dokumentasi ke folder `assets/`.
 - `result/`: Folder *output* khusus untuk hasil gambar terkompresi dan logo hasil ekstraksi.
 
 ---
