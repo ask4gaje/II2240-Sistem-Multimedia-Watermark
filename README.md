@@ -36,15 +36,12 @@ pip install -r .requirements.txt
 
 ### 4. Menjalankan Skrip
 Setelah instalasi selesai, Anda dapat menjalankan skrip berikut sesuai urutan:
-1.  **Generate Logo**: `python main/create_logo.py` (Membuat logo baseball awal).
-2.  **Evaluasi & Ekstraksi**: `python main/watermark_eval.py` (Menyisipkan watermark dan menguji ketangguhannya).
-3.  **Visualisasi Dokumentasi**: `python main/generate_readme_assets.py` (Memperbarui aset gambar untuk README ini).
+1.  **Generate Logo**: `python -m main.create_logo` (Membuat logo baseball awal).
+2.  **Evaluasi & Ekstraksi**: `python -m main.watermark_eval` (Menyisipkan watermark dan menguji ketangguhannya).
 
 ---
 
 ## Alur Kerja Teknis
-
-Berikut adalah langkah-langkah detail bagaimana watermark disisipkan ke dalam gambar:
 
 ### 1. Pre-proses Logo
 Logo (128x128 piksel) digenerate secara programatik menggunakan skrip `create_logo.py`. Gambar ini kemudian dikonversi menjadi matriks biner (0 untuk hitam, 1 untuk putih). Setiap piksel logo ini mewakili satu bit informasi yang akan disebar ke dalam blok frekuensi gambar induk.
@@ -116,8 +113,6 @@ Folder **`assets/`** digunakan khusus untuk menyimpan file sumber dan gambar pen
 - `main/`:
   - `create_logo.py`: Membuat logo dasar 128x128.
   - `watermark_eval.py`: Skrip utama untuk pengujian watermarking (Output: folder `result/`).
-  - `visualize_steps.py`: Menghasilkan gambar visualisasi teknis ke folder `assets/`.
-  - `generate_readme_assets.py`: Menghasilkan aset gambar untuk dokumentasi ke folder `assets/`.
 - `result/`: Folder *output* khusus untuk hasil gambar terkompresi dan logo hasil ekstraksi.
 
 ---
