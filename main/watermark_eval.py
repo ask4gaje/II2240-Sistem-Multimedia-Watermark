@@ -141,13 +141,15 @@ def main():
     watermarked_img = embed_dct_unbreakable(original_img, watermark_binary, alpha=100, seed=42)
 
     # UPDATED: Changed to 8 distinct QF values to display
-    qf_values = [100, 90, 75, 50, 20, 11, 10, 7] 
+    qf_values = [100, 90, 75, 50, 20, 11, 8, 5] 
     
     # Changed to 12x12 so vertical stacked plots aren't squished
     plt.figure(figsize=(12, 12))
 
     # Define result directory once
-    result_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'result')
+    result_dir = os.path.join(project_root, 'result')
+    if not os.path.exists(result_dir):
+        os.makedirs(result_dir)
 
     for i, qf in enumerate(qf_values):
         output_path = os.path.join(result_dir, f'image_qf{qf}.jpg')

@@ -36,12 +36,15 @@ pip install -r .requirements.txt
 
 ### 4. Menjalankan Skrip
 Setelah instalasi selesai, Anda dapat menjalankan skrip berikut sesuai urutan:
-1.  **Generate Logo**: `python -m main.create_logo` (Membuat logo baseball awal).
-2.  **Evaluasi & Ekstraksi**: `python -m main.watermark_eval` (Menyisipkan watermark dan menguji ketangguhannya).
+1.  **Generate Logo**: `python main/create_logo.py` (Membuat logo baseball awal).
+2.  **Evaluasi & Ekstraksi**: `python main/watermark_eval.py` (Menyisipkan watermark dan menguji ketangguhannya).
+3.  **Visualisasi Dokumentasi**: `python main/generate_readme_assets.py` (Memperbarui aset gambar untuk README ini).
 
 ---
 
 ## Alur Kerja Teknis
+
+Berikut adalah langkah-langkah detail bagaimana watermark disisipkan ke dalam gambar:
 
 ### 1. Pre-proses Logo
 Logo (128x128 piksel) digenerate secara programatik menggunakan skrip `create_logo.py`. Gambar ini kemudian dikonversi menjadi matriks biner (0 untuk hitam, 1 untuk putih). Setiap piksel logo ini mewakili satu bit informasi yang akan disebar ke dalam blok frekuensi gambar induk.
@@ -58,8 +61,9 @@ Setiap blok 8x8 piksel pada kanal Hijau diubah dari domain spasial (pixel) ke do
 
 ![Langkah 3: DCT Breakdown](assets/readme_step3_breakdown.png)
 
-- **Piksel Asli**: Mewakili intensitas cahaya pada koordinat tertentu.
-- **Koefisien DCT**: Mewakili amplitudo frekuensi. Koefisien kiri atas (DC) adalah nilai rata-rata, sementara koefisien lainnya adalah detail frekuensi. Watermark disisipkan pada koefisien frekuensi rendah-menengah untuk menjaga keseimbangan antara ketangguhan dan kualitas visual.
+1.  **Piksel Asli**: Mewakili intensitas cahaya (0-255).
+2.  **Koefisien DCT**: Mewakili amplitudo frekuensi. Koefisien kiri atas (DC) adalah nilai rata-rata, sementara koefisien lainnya adalah detail frekuensi.
+3.  **Rekonstruksi (IDCT)**: Proses mengembalikan koefisien frekuensi kembali menjadi piksel. Tahap ini membuktikan bahwa transformasi frekuensi bersifat *reversible* (dapat dibalik) tanpa kehilangan data sebelum dilakukan manipulasi atau kompresi.
 
 ### 4. Penyisipan Data (Embedding)
 Data disisipkan dengan memanipulasi hubungan antara dua koefisien DCT tertentu. Karena perubahan dilakukan di domain frekuensi, watermark menjadi "menyatu" dengan pola gambar sehingga sulit dihilangkan oleh kompresi.
@@ -74,7 +78,7 @@ Gambar di bawah menunjukkan selisih nilai piksel antara gambar asli dan gambar y
 ### 6. Ekstraksi dan Uji Ketangguhan
 Langkah terakhir adalah mengekstraksi kembali watermark dari gambar yang telah dikompresi. Gambar di bawah menunjukkan perbandingan antara **gambar induk yang terkompresi** (baris atas) dan **logo yang berhasil diekstraksi** (baris bawah) pada berbagai tingkat kualitas JPEG.
 
-![Langkah 6: Perbandingan Ketangguhan](assets/readme_step6_extractioncomparison.png)
+![Langkah 6: Perbandingan Ketangguhan](assets/readme_robustness_comparison.png)
 
 #### Analisis Performa:
 | Rentang QF | Akurasi (%) | Status |
@@ -113,6 +117,8 @@ Folder **`assets/`** digunakan khusus untuk menyimpan file sumber dan gambar pen
 - `main/`:
   - `create_logo.py`: Membuat logo dasar 128x128.
   - `watermark_eval.py`: Skrip utama untuk pengujian watermarking (Output: folder `result/`).
+  - `visualize_steps.py`: Menghasilkan gambar visualisasi teknis ke folder `assets/`.
+  - `generate_readme_assets.py`: Menghasilkan aset gambar untuk dokumentasi ke folder `assets/`.
 - `result/`: Folder *output* khusus untuk hasil gambar terkompresi dan logo hasil ekstraksi.
 
 ---
